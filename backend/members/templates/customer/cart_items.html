@@ -1,0 +1,105 @@
+{% extends 'users/base.html' %}
+{% block title %}
+        Cart
+        {% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+  {% if user.customer.id == customer_id %}
+<div class="container">
+    <br>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Continue Shopping</a>
+    <br><br>
+    <table class="table">
+        <thead>
+          <tr class="row">
+            <th scope="col" class="col-4">ITEM</th>
+            <th scope="col" class="col-2">PRICE</th>
+            <th scope="col" class="col-2">QUANTITY</th>
+            <th scope="col" class="col-2">TOTAL</th>
+            <th scope="col" class="col-2">X / alter</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for cartitem in cart %}
+          <tr class="row">
+            <th scope="row" class="col-4">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{ cartitem.product.image.url }}" class="img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                        <p class="card-text"><small class="text-muted">{{ cartitem.product.title }}</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </th>
+            <td class="col" class="col-2">N{{ cartitem.product.price|floatformat:2 }}</td>
+            <td class="col" class="col-2">{{ cartitem.quantity }}</td>
+            <td class="col" class="col-2">N{{ cartitem.get_total }}</td>
+            <td class="col" class="col-2"><a href="{% url 'cart-item-delete' cartitem.id %}" class="btn btn-sm btn-danger"></a><br><br><a href="{% url 'cart-item-update' cartitem.id %}" class="btn btn-sm btn-success"></a></td>
+            <!-- <td class="col" class="col-2"><a href="{% url 'cart-item-update' cartitem.id %}" class="btn btn-sm btn-success"></a></td> -->
+        </tr>
+        {% endfor %}
+
+          
+
+          <!-- <tr class="row">
+            <th scope="row" class="col-4">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="..." class="img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </th>
+            <td class="col" class="col-2">Mark</td>
+            <td class="col" class="col-2"></td>
+            <td class="col" class="col-2">@mdo</td>
+            <td class="col" class="col-2">@mdo</td>
+          </tr> -->
+          
+        </tbody>
+      </table>
+
+      <br><br>
+
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+                <div class="col">
+                    Items: {{ items }}
+                </div>
+                <div class="col-6">
+                  Total: N{{ total }}
+                </div>
+                <div class="col">
+                  <form action="{% url 'create-ship' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="cart_id" value="{{ id }}" class="btn btn-success">Checkout</button>
+                  </form>
+                    <!-- <a href="{ url 'shipping' }" class="btn btn-success">Checkout</a> -->
+                </div>
+              </div>
+          </div>
+    </div>
+    <br><br>
+</div>
+{% else %}
+<h1>Access Denied</h1>
+{% endif %}
+
+{% else %}
+<h1>You have to be logged in to use this feature.</h1> 
+{% endif %}
+
+{% endblock %}

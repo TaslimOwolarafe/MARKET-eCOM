@@ -1,0 +1,15 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<br>
+<h1>Create a Product.</h1>
+<div class="form-group">
+    <form action="" method="post" enctype="multipart/form-data">
+        <br><br>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-secondary">Create Product</button>
+    </form>
+</div>  
+<br><br><br>
+{% endblock %}

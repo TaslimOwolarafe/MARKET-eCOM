@@ -1,0 +1,41 @@
+{% extends 'users/base.html' %}
+{% block title %}
+        {{company_product.owner}}
+        {% endblock %}
+{% block content %}
+
+<br><br>
+<h1 style="display: inline-block; margin-right: 10px;">{{ page_user.name|title }} Products</h1><a href="{% url 'edit-company' user.company.id %}" class="btn btn-sm btn-outline-secondary">Edit Company</a>
+<br><br>
+<a href="{% url 'create-product' %}" class="btn btn-sm btn-outline-success">Create Product</a>
+<br><br>
+    <!-- <div class="container"> -->
+        <div class="row">
+            {% for product in company_product %}
+          <div class="product col col-lg-3 col-md-4 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                  <img src="{{ product.image.url }}" class="product-img card-img-top" alt="...">
+                  <p class="card-text">{{ product.title }}</p>
+                  <!-- <a href="#" class="btn btn-sm btn-primary">Add to Cart</a> -->
+                  
+                  <!-- <form action="{ url 'create-cart-item' }" method="post" style="display: inline-block;">
+                      { csrf_token }
+                    <button type="submit" name="product_id" value="{{ product.id }}" class="btn btn-sm btn-primary">Add to Cart</button>
+                  </form> -->
+
+                  <a href="{% url 'edit-product' product.id %}" class="btn btn-sm btn-primary">Edit</a>
+        
+                  <span class="price">N{{ product.price }}</span>
+                  <h6>{{ product.owner }}</h6>
+                </div>
+              </div>
+              
+          </div>
+          {% endfor %}
+    
+        
+        </div>
+
+
+{% endblock %}

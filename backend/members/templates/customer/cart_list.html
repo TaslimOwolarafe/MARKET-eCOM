@@ -1,0 +1,21 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<br>
+{% for cart in object_list %}
+<br>
+<div class="card border-info mb-3" style="max-width: 18rem;">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <h5 class="card-title">{{ cart.customer }}</h5>
+      <p class="card-text">{{ cart.company }}</p>
+      <p class="card-text">{{ cart.date_ordered }}</p>
+      <p class="card-text">{{ cart.id }}</p>
+      <a href="{% url 'cart-items' cart.id %}" class="btn btn-sm btn-primary">View</a>
+    </div>
+  </div>
+
+{% endfor %}
+
+
+{% endblock %}

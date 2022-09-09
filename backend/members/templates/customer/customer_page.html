@@ -1,0 +1,36 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+{{ user.customer.display_name}}
+{% endblock %}
+{% block content %}
+<br>
+{% if user.is_authenticated %}
+{% if user.customer.display_name == page_user.display_name %}
+<h4 style="display: inline-block; margin-right: 10px;">{{ page_user.display_name }}</h4>
+<a href="{% url 'edit-customer' user.customer.id %}" class="btn btn-sm btn-outline-secondary">Edit Customer Profile</a>
+<br><br>
+<h4>Your Carts</h4>
+{% for cart in customer_carts %}
+<br>
+<div class="card border-info mb-3" style="max-width: 18rem;">
+    <div class="card-header"></div>
+    <div class="card-body">
+      <!-- <h5 class="card-title">{{ cart.customer }}</h5> -->
+      <p class="card-text">Your Cart from {{ cart.company }}</p>
+      <p class="card-text">{{ cart.date_ordered }}</p>
+      <!-- <p class="card-text">{{ cart.id }}</p> -->
+      <a href="{% url 'cart-items' cart.id %}" class="btn btn-sm btn-primary">View Cart</a>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% else %}
+  <h1>Access Denied</h1>
+  {% endif %}
+  
+  {% else %}
+  <h1>You have to be logged in to use this feature.</h1> 
+  {% endif %}
+  
+  {% endblock %}

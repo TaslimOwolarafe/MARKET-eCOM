@@ -1,0 +1,27 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+
+<br><br>
+<h1>Login into your getIt account</h1>
+<div class="form-group">
+    <form action="" method="post">
+        <br><br>
+        {% csrf_token %}
+        <div class="mb-3">
+        
+            <input class="form-control" name="username" placeholder="Username">
+          </div>
+          
+          <div class="mb-3">
+            
+            <input type="password" class="form-control" name="password" placeholder="Password">
+          </div>
+
+        
+        <button class="btn btn-secondary">Login</button>
+    </form>
+</div>  
+
+
+{% endblock %}
